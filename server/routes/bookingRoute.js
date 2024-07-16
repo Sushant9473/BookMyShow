@@ -49,19 +49,19 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
 
 router.post("/make-payment", async (req, res) => {
   try {
-    const { token, amount } = req.body;
+    const {token, amount} = req.body;
     const customer = await stripe.customers.create({
       email: token.email,
-      source: token.id,
+      source: token.id
     });
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: "usd",
+      currency: 'usd',
       customer: customer.id,
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
       receipt_email: token.email,
-      description: "Token has been assigned to the movie!",
+      description: "Token has been assigned to the movie!"
     });
 
     // const charge = await stripe.charges.create({
@@ -88,7 +88,7 @@ router.post("/make-payment", async (req, res) => {
 });
 
 // Create a booking after the payment
-router.post("/book-show", async (req, res) => {
+router.post('/book-show', async (req, res) => {
   try {
     const newBooking = new Booking(req.body);
     await newBooking.save();
