@@ -16,6 +16,11 @@ function Admin() {
             }
         });
 
+        console.log(""+user.data.data);
+        if(!user){
+            navigate("/admin");
+        }
+
         if (user.data.data.role === "partner" ) {
             navigate("/partner");
             message.error("You are not allowed to access this page");
@@ -27,13 +32,11 @@ function Admin() {
         }
         else
         {
-
+          navigate("/admin");
         }
     }
 
-    useEffect(() => {
-        checkUser()
-    }, []);
+    checkUser();
 
     const tabItems = [
         { 
